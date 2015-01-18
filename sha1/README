@@ -1,0 +1,1 @@
+This SHA1 module exists only so that we can add a .Clone() method to the object.

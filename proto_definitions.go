@@ -1,0 +1,195 @@
+// Copyright 2015 The GoTor Authors.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+package main
+
+import "fmt"
+
+type Command byte
+type RelayCommand byte
+type DestroyReason byte
+type StreamEndReason byte
+
+const (
+	CMD_PADDING        Command = 0
+	CMD_CREATE         Command = 1
+	CMD_CREATED        Command = 2
+	CMD_RELAY          Command = 3
+	CMD_DESTROY        Command = 4
+	CMD_CREATE_FAST    Command = 5
+	CMD_CREATED_FAST   Command = 6
+	CMD_VERSIONS       Command = 7
+	CMD_NETINFO        Command = 8
+	CMD_RELAY_EARLY    Command = 9
+	CMD_CREATE2        Command = 10
+	CMD_CREATED2       Command = 11
+	CMD_VPADDING       Command = 128
+	CMD_CERTS          Command = 129
+	CMD_AUTH_CHALLENGE Command = 130
+	CMD_AUTHENTICATE   Command = 131
+	CMD_AUTHORIZE      Command = 132
+)
+
+const (
+	RELAY_BEGIN     RelayCommand = 1
+	RELAY_DATA      RelayCommand = 2
+	RELAY_END       RelayCommand = 3
+	RELAY_CONNECTED RelayCommand = 4
+	RELAY_SENDME    RelayCommand = 5
+	RELAY_EXTEND    RelayCommand = 6
+	RELAY_EXTENDED  RelayCommand = 7
+	RELAY_TRUNCATE  RelayCommand = 8
+	RELAY_TRUNCATED RelayCommand = 9
+	RELAY_DROP      RelayCommand = 10
+	RELAY_RESOLVE   RelayCommand = 11
+	RELAY_RESOLVED  RelayCommand = 12
+	RELAY_BEGIN_DIR RelayCommand = 13
+	RELAY_EXTEND2   RelayCommand = 14
+	RELAY_EXTENDED2 RelayCommand = 15
+)
+
+const (
+	DESTROY_REASON_NONE DestroyReason = iota
+	DESTROY_REASON_PROTOCOL
+	DESTROY_REASON_INTERNAL
+	DESTROY_REASON_REQUESTED
+	DESTROY_REASON_HIBERNATING
+	DESTROY_REASON_RESOURCELIMIT
+	DESTROY_REASON_CONNECTFAILED
+	DESTROY_REASON_OR_IDENTITY
+	DESTROY_REASON_OR_CONN_CLOSED
+	DESTROY_REASON_FINISHED
+	DESTROY_REASON_TIMEOUT
+	DESTROY_REASON_DESTROYED
+	DESTROY_REASON_NOSUCHSERVICE
+)
+
+const (
+	_ StreamEndReason = iota
+	STREAM_REASON_MISC
+	STREAM_REASON_RESOLVEFAILED
+	STREAM_REASON_CONNECTREFUSED
+	STREAM_REASON_EXITPOLICY
+	STREAM_REASON_DESTROY
+	STREAM_REASON_DONE
+	STREAM_REASON_TIMEOUT
+	STREAM_REASON_NOROUTE
+	STREAM_REASON_HIBERNATING
+	STREAM_REASON_INTERNAL
+	STREAM_REASON_RESOURCELIMIT
+	STREAM_REASON_CONNRESET
+	STREAM_REASON_TORPROTOCOL
+	STREAM_REASON_NOTDIRECTORY
+)
+
+func (c Command) String() string {
+	switch c {
+	case CMD_PADDING:
+		return "CMD_PADDING"
+	case CMD_CREATE:
+		return "CMD_CREATE"
+	case CMD_CREATED:
+		return "CMD_CREATED"
+	case CMD_RELAY:
+		return "CMD_RELAY"
+	case CMD_DESTROY:
+		return "CMD_DESTROY"
+	case CMD_CREATE_FAST:
+		return "CMD_CREATE_FAST"
+	case CMD_CREATED_FAST:
+		return "CMD_CREATED_FAST"
+	case CMD_VERSIONS:
+		return "CMD_VERSIONS"
+	case CMD_NETINFO:
+		return "CMD_NETINFO"
+	case CMD_RELAY_EARLY:
+		return "CMD_RELAY_EARLY"
+	case CMD_CREATE2:
+		return "CMD_CREATE2"
+	case CMD_CREATED2:
+		return "CMD_CREATED2"
+	case CMD_VPADDING:
+		return "CMD_VPADDING"
+	case CMD_CERTS:
+		return "CMD_CERTS"
+	case CMD_AUTH_CHALLENGE:
+		return "CMD_AUTH_CHALLENGE"
+	case CMD_AUTHENTICATE:
+		return "CMD_AUTHENTICATE"
+	case CMD_AUTHORIZE:
+		return "CMD_AUTHORIZE"
+	default:
+		return fmt.Sprintf("CMD_UNKNOWN_%d", c)
+	}
+}
+
+func (c RelayCommand) String() string {
+	switch c {
+	case RELAY_BEGIN:
+		return "RELAY_BEGIN"
+	case RELAY_DATA:
+		return "RELAY_DATA"
+	case RELAY_END:
+		return "RELAY_END"
+	case RELAY_CONNECTED:
+		return "RELAY_CONNECTED"
+	case RELAY_SENDME:
+		return "RELAY_SENDME"
+	case RELAY_EXTEND:
+		return "RELAY_EXTEND"
+	case RELAY_EXTENDED:
+		return "RELAY_EXTENDED"
+	case RELAY_TRUNCATE:
+		return "RELAY_TRUNCATE"
+	case RELAY_TRUNCATED:
+		return "RELAY_TRUNCATED"
+	case RELAY_DROP:
+		return "RELAY_DROP"
+	case RELAY_RESOLVE:
+		return "RELAY_RESOLVE"
+	case RELAY_RESOLVED:
+		return "RELAY_RESOLVED"
+	case RELAY_BEGIN_DIR:
+		return "RELAY_BEGIN_DIR"
+	case RELAY_EXTEND2:
+		return "RELAY_EXTEND2"
+	case RELAY_EXTENDED2:
+		return "RELAY_EXTENDED2"
+	default:
+		return fmt.Sprintf("RELAY_UNKNOWN_%d", c)
+	}
+}
+
+func (d DestroyReason) String() string {
+	switch d {
+	case DESTROY_REASON_NONE:
+		return "DESTROY_REASON_NONE"
+	case DESTROY_REASON_PROTOCOL:
+		return "DESTROY_REASON_PROTOCOL"
+	case DESTROY_REASON_INTERNAL:
+		return "DESTROY_REASON_INTERNAL"
+	case DESTROY_REASON_REQUESTED:
+		return "DESTROY_REASON_REQUESTED"
+	case DESTROY_REASON_HIBERNATING:
+		return "DESTROY_REASON_HIBERNATING"
+	case DESTROY_REASON_RESOURCELIMIT:
+		return "DESTROY_REASON_RESOURCELIMIT"
+	case DESTROY_REASON_CONNECTFAILED:
+		return "DESTROY_REASON_CONNECTFAILED"
+	case DESTROY_REASON_OR_IDENTITY:
+		return "DESTROY_REASON_OR_IDENTITY"
+	case DESTROY_REASON_OR_CONN_CLOSED:
+		return "DESTROY_REASON_OR_CONN_CLOSED"
+	case DESTROY_REASON_FINISHED:
+		return "DESTROY_REASON_FINISHED"
+	case DESTROY_REASON_TIMEOUT:
+		return "DESTROY_REASON_TIMEOUT"
+	case DESTROY_REASON_DESTROYED:
+		return "DESTROY_REASON_DESTROYED"
+	case DESTROY_REASON_NOSUCHSERVICE:
+		return "DESTROY_REASON_NOSUCHSERVICE"
+	default:
+		return fmt.Sprintf("DESTROY_REASON_%d", d)
+	}
+}
