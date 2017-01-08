@@ -154,7 +154,7 @@ func (d *Descriptor) SignedDescriptor() (string, error) {
 	})
 
 	// Sign extrainfo
-	signature, err = d.SigningKey.PrivateEncrypt(digest[:])
+	signature, err = d.SigningKey.PrivateEncrypt(extraDigest[:])
 	if err != nil {
 		return "", err
 	}
